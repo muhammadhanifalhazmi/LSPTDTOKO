@@ -1,0 +1,34 @@
+CREATE DATABASE toko_toserba;
+
+USE toko_toserba;
+
+CREATE TABLE barang (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    kode_barang VARCHAR(50) NOT NULL,
+    nama_barang VARCHAR(100) NOT NULL,
+    harga_beli DECIMAL(10,2) NOT NULL,
+    harga_jual DECIMAL(10,2) NOT NULL,
+    stok INT NOT NULL,
+    satuan VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE penjualan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    no_penjualan VARCHAR(50) NOT NULL UNIQUE,
+    nama_kasir VARCHAR(100) NOT NULL,
+    tgl_penjualan DATE NOT NULL,
+    jam_penjualan TIME NOT NULL,
+    total DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE detail_penjualan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    no_penjualan VARCHAR(50) NOT NULL,
+    nama_barang VARCHAR(100) NOT NULL,
+    harga_barang DECIMAL(10,2) NOT NULL,
+    jumlah_barang INT NOT NULL,
+    satuan VARCHAR(50) NOT NULL,
+    sub_total DECIMAL(10,2) NOT NULL,
+    INDEX (no_penjualan),
+    FOREIGN KEY (no_penjualan) REFERENCES penjualan(no_penjualan)
+);
